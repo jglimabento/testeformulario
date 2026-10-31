@@ -1,4 +1,13 @@
 {
+  "name": "client-profile-form-cypress-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cypress UI tests for client profile form validation",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test": "cypress run"
+  },
   "devDependencies": {
     "cypress": "^14.5.0"
   }

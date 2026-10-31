@@ -74,7 +74,7 @@ describe('Client Profile Form Tests', () => {
         cy.get('#state-SP').click();
         cy.get('#annualIncome').type('10000');
 
-        cy.get('#email').should('have.value', 'invalidemail');
+        cy.get('#email').should('have.value', 'invalidemail').then(($input) => {\n            expect($input[0].checkValidity(), 'email native validity').to.be.false;\n        });
         cy.log('Invalid email entered.');
     });
 
@@ -92,7 +92,7 @@ describe('Client Profile Form Tests', () => {
         cy.get('#state-SP').click();
         cy.get('#annualIncome').type('10000');
 
-        cy.get('#phone').should('not.have.value', 'abc123def');
+        cy.get('#phone').should('not.have.value', 'abc123def').then(($input) => {\n            expect($input.val(), 'phone value should not retain alphabetic characters').not.to.match(/[a-z]/i);\n        });
         cy.log('Phone number with non-numeric characters entered.');
     });
 
@@ -110,7 +110,7 @@ describe('Client Profile Form Tests', () => {
         cy.get('#state-SP').click();
         cy.get('#annualIncome').type('10000');
 
-        cy.get('#dateOfBirth').should('have.value', '2030-01-01');
+        cy.get('#dateOfBirth').should('have.value', '2030-01-01').then(($input) => {\n            expect($input[0].checkValidity(), 'future date native validity').to.be.false;\n        });
 
         cy.log('Future date of birth entered.');
     });
@@ -128,7 +128,7 @@ describe('Client Profile Form Tests', () => {
         cy.get('#state-SP').click();
         cy.get('#annualIncome').type('-1000');
 
-        cy.get('#annualIncome').should('have.value', '-1,000');
+        cy.get('#annualIncome').should('have.value', '-1,000').then(($input) => {\n            expect($input[0].checkValidity(), 'negative income native validity').to.be.false;\n        });
         cy.log('Negative Annual Income entered.');
     });
     it('should not allow submission with empty mandatory fields (e.g., Full name)', () => {
@@ -144,7 +144,7 @@ describe('Client Profile Form Tests', () => {
         cy.get('#state-SP').click();
         cy.get('#annualIncome').type('10000');
 
-        cy.get('#name').should('have.value', '');
+        cy.get('#name').should('have.value', '').then(($input) => {\n            expect($input[0].checkValidity(), 'required name native validity').to.be.false;\n        });
         cy.log('Full name field left empty.');
     });
 });
